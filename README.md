@@ -28,9 +28,11 @@ flowchart LR
 - **Deterministic Driver-First Conflict Resolution (`StateSyncEngine.swift`):** Resolves concurrent edits reproducibly (prioritizing in-cabin head-unit interactions over background phone sync) and broadcasts snapshots over multi-consumer `AsyncStream`.
 - **Priority Ring-Buffer Offline Queue (`OfflineCommandQueue.swift`):** Actor-isolated bounded buffer with `.safetyCritical`, `.navigation`, and `.telemetry` lanes, priority-aware backpressure eviction, and exponential backoff replay on reconnect.
 - **Speed-Aware CarPlay Safety Policy (`DriverDistractionPolicy.swift`):** Adapts `CPListTemplate` item depth, template hierarchy limits, and keyboard search lockouts dynamically based on `VehicleTelemetry.motionState` while keeping safety-critical actions pinned first.
+- **Automotive Head-Unit HUD & Diagnostics Console (`CarPlayHeadUnitView.swift`, `SyncDiagnosticsInspectorView.swift`):** High-contrast SwiftUI cockpit display and `@MainActor` MVVM coordinator (`CarPlayDashboardViewModel`) for inspecting live speed lockouts, vector-clock matrices, and concurrent tunnel partition conflict resolution.
+- **Deterministic Drive-Cycle Telemetry Replay (`TelemetryReplaySimulator.swift`):** Reproducible drive profiles (`parkedPreflight`, `urbanStopAndGo`, `highwayCruiseLockout`, `tunnelNetworkPartition`) for automated HMI verification.
 - **Payload Integrity Verification (`SyncEnvelope.swift`):** Deterministic 64-bit FNV-1a envelope checksums reject corrupted frames before mutating state.
 
-## Running Tests
+## Running Tests (17 XCTest Cases)
 
 ```bash
 swift test
